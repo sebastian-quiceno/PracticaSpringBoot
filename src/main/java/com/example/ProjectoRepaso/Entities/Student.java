@@ -2,6 +2,10 @@ package com.example.ProjectoRepaso.Entities;
 
 
 import jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
+import java.time.Period;
 
 //Es una buena práctica ponerle nombre a las tablas
 @Entity(name = "student")
@@ -34,17 +38,21 @@ public class Student {
     @Column(name = "last_name", nullable = false, columnDefinition = "TEXT")
     private String lastName;
 
+    @Column(name = "date_of_birt", nullable = false)
+    private LocalDate dob;
+
     @Column(name = "email", nullable = false, columnDefinition = "TEXT")
     private String email;
 
-    @Column(name = "age", length = 3)
+//    Para indicar a Hibernate que no debe persistir un atributo en la base de datos se usa la anotacion @Transient
+    @Transient
     private int age;
 
-    public Student(String firstName, String lastName, String email, int age) {
+    public Student(String firstName, String lastName, LocalDate dob, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.dob = dob;
         this.email = email;
-        this.age = age;
     }
 
     public Student() {
@@ -84,7 +92,7 @@ public class Student {
     }
 
     public int getAge() {
-        return age;
+        return Period.between(this.dob, LocalDate.now()).getYears();
     }
 
     public void setAge(int age) {
@@ -97,6 +105,7 @@ public class Student {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", dob=" + dob +
                 ", email='" + email + '\'' +
                 ", age=" + age +
                 '}';

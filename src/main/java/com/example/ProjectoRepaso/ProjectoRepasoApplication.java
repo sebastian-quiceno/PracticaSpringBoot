@@ -14,12 +14,12 @@ public class ProjectoRepasoApplication {
 		SpringApplication.run(ProjectoRepasoApplication.class, args);
 	}
 
-    @Bean
+   /* @Bean
     CommandLineRunner commandLineRunner(StudentRepository studentRepository){
         return args -> {
             Student maria = new Student("Maria", "Jones", "maria.jones@amigoscode.edu",21);
             studentRepository.save(maria);
         };
-    }
+    }*/
 
 }
